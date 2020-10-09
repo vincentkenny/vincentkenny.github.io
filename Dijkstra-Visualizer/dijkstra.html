@@ -1,0 +1,42 @@
+<html>
+
+<head>
+    <script src="func.js"></script>
+    <link rel="stylesheet" type="text/css" href="grid.css">
+    <link rel="stylesheet" type="text/css" href="css/all.min.css">
+    <title>Dijkstra Pathfinding | Kenny Vincent</title>
+    <link rel="shortcut icon" href="assets/icon_kmeans.png" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body onresize="generate()">
+    <div class="nav noselect">
+        <div class="navbar-header">
+            <a href="#" class="navbar-brand">Dijkstra Pathfinding Visualizer</a>
+        </div>
+        <div class="toolbar-container">
+
+            <a href="#" class="toolbar-item" id="scatter-btn" onclick="scatter_wall()">Scatter Random Obstacles</a>
+            <button class="toolbar-item" id="btn-visualize" onclick="dijkstra()">Visualize Clustering</button>
+            <a href="#" class="toolbar-item" onclick="reset_grid()">Clear Board</a>
+            
+        </div>
+    </div>
+    <div class="legends noselect">
+        <div class="legends-item"><i class="fas fa-arrows-alt"></i> Start Position</div>
+        <div class="legends-item"><i class="fas fa-life-ring"></i> End Goal</div>
+        <div class="legends-item"><div id="wall-legend"></div> Walls</div>
+        <div class="legends-item"><div id="visited-legend"></div> Visited Steps</div>
+        <div class="legends-item"><div id="final-legend"></div> Shortest Path</div>
+    </div>
+    <div id="container">
+        <table id="board">
+        </table>
+    </div>
+</body>
+<script>
+    generate();
+
+</script>
+
+</html>

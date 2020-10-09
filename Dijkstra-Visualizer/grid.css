@@ -1,0 +1,814 @@
+body {
+  margin: 0;
+}
+button {
+  cursor: pointer;
+  outline: none;
+}
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+.grid {
+  width: 22px;
+  height: 22px;
+  background-color: white;
+  outline: 1px solid #a2d5f2;
+  display: inline-block;
+}
+.grid-transition {
+  width: 22px;
+  height: 22px;
+  background-color: white;
+  outline: 1px solid rgb(175, 216, 248);
+  display: inline-block;
+  animation-name: gridAnimation;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+@keyframes gridAnimation {
+  0% {
+    transform: scale(0.3);
+    background-color: rgb(22, 0, 30);
+  }
+  50% {
+    transform: scale(0.7);
+    background-color: rgba(22, 0, 30, 0.5);
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: white;
+  }
+}
+
+.start-node {
+  width: 22px;
+  height: 22px;
+  outline: 1px solid #a2d5f2;
+  display: inline-block;
+  position: relative;
+}
+.start-node:before {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  font-family: "Font Awesome 5 Free";
+  content: "\f0b2";
+  font-weight: 900;
+}
+
+.end-node {
+  width: 22px;
+  height: 22px;
+  outline: 1px solid #a2d5f2;
+  display: inline-block;
+  position: relative;
+}
+.end-node:before {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  font-family: "Font Awesome 5 Free";
+  content: "\f1cd";
+  font-weight: 900;
+}
+#container {
+  width: 100%;
+  padding: auto;
+}
+#board {
+  width: 100%;
+  padding-left: 15px;
+}
+.nav {
+  width: 100%;
+  height: 15%;
+  background-color: #ffa36c;
+  position: relative;
+}
+.navbar-header {
+  width: 95%;
+  padding-left: 2%;
+  height: 50%;
+  align-items: center;
+  display: flex;
+}
+.navbar-brand {
+  color: white;
+  font-size: 21;
+  text-decoration: none;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  animation-name: transTitleBack;
+  animation-timing-function: ease-in;
+  animation-duration: 0.3s;
+}
+@keyframes transTitleBack {
+  0% {
+    color: #d54062;
+  }
+
+  100% {
+    color: white;
+  }
+}
+.navbar-brand:hover {
+  animation-name: transTitle;
+  animation-duration: 0.3s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+@keyframes transTitle {
+  0% {
+    color: white;
+  }
+
+  100% {
+    color: #d54062;
+  }
+}
+.toolbar-container {
+  width: 100%;
+  height: 50%;
+  position: absolute;
+  bottom: 0;
+
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+}
+.toolbar-item {
+  color: white;
+  text-decoration: none;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16;
+  font-weight: bold;
+  margin-left: 30px;
+  width: 210px;
+
+  animation-name: transTitleBack;
+  animation-timing-function: ease-in;
+  animation-duration: 0.3s;
+}
+.toolbar-item:hover {
+  animation-name: transDropdown;
+  animation-duration: 0.3s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+@keyframes transDropdown {
+  0% {
+    color: white;
+  }
+
+  100% {
+    color: #d54062;
+  }
+}
+.toolbar-dropdown {
+  color: white;
+  text-decoration: none;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16;
+  font-weight: bold;
+
+  animation-name: transTitleBack;
+  animation-timing-function: ease-in;
+  animation-duration: 0.3s;
+}
+.toolbar-dropdown:hover {
+  animation-name: transTitle;
+  animation-duration: 0.3s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+.toolbar-dropdown:hover .sideIcon {
+  animation-name: transSide;
+  animation-duration: 0.3s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+@keyframes transSide {
+  0% {
+    color: white;
+  }
+
+  100% {
+    color: #d54062;
+  }
+}
+
+.wall {
+  width: 22px;
+  height: 22px;
+  background-color: rgb(22, 0, 30);
+  outline: 1px solid rgb(175, 216, 248);
+  display: inline-block;
+}
+
+.wall {
+  animation-name: visitedAnimation;
+  animation-duration: 0.2s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+@keyframes visitedAnimation {
+  0% {
+    transform: scale(0.3);
+    background-color: rgba(0, 0, 66, 0.75);
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: rgb(12, 53, 71);
+  }
+}
+
+.visited-node {
+  width: 22px;
+  height: 22px;
+  background-color: rgb(26, 208, 157);
+  outline: 1px solid rgb(175, 216, 248);
+  display: inline-block;
+  animation-name: visitedAnimation1;
+  animation-duration: 0.4s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+@keyframes visitedAnimation1 {
+  0% {
+    transform: scale(0.3);
+    background-color: rgba(0, 0, 66, 0.75);
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: rgb(26, 208, 157);
+  }
+}
+
+.final-path {
+  width: 22px;
+  height: 22px;
+  background-color: rgb(247, 113, 125);
+  outline: 1px solid rgb(175, 216, 248);
+  display: inline-block;
+  animation-name: visitedAnimation3;
+  animation-duration: 0.4s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+@keyframes visitedAnimation3 {
+  0% {
+    transform: scale(0.3);
+    background-color: rgba(115, 115, 128, 0.75);
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: rgb(247, 113, 125);
+  }
+}
+.group4 {
+  width: 22px;
+  height: 22px;
+  background-color: rgb(59, 191, 255);
+  outline: 1px solid rgb(175, 216, 248);
+  display: inline-block;
+  animation-name: visitedAnimation4;
+  animation-duration: 0.4s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+@keyframes visitedAnimation4 {
+  0% {
+    transform: scale(0.3);
+    background-color: rgba(0, 0, 66, 0.75);
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: rgb(59, 191, 255);
+  }
+}
+
+.sideIcon {
+  color: white;
+  animation-name: transSideBack;
+  animation-timing-function: ease-in;
+  animation-duration: 0.3s;
+}
+@keyframes transSideBack {
+  0% {
+    color: #d54062;
+  }
+
+  100% {
+    color: white;
+  }
+}
+#btn-visualize {
+  width: 200px;
+  background-color: black;
+  border: none;
+  text-decoration: none;
+  height: 90%;
+  border-radius: 10px;
+  margin-bottom: 5px;
+}
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  background-color: #056676;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  left: 30px;
+  border-radius: 5px;
+}
+.dropdown-menu a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  color: white;
+  border-radius: 5px;
+}
+.dropdown-menu a:hover {
+  background-color: #5eaaa8;
+}
+
+#cycle_view {
+  display: none;
+}
+
+.legends {
+  padding-top: 15px;
+  margin-bottom: 10px;
+  height: 30px;
+  float: left;
+}
+.legends-item {
+  margin-left: 40px;
+  height: 100%;
+  float: left;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+}
+#wall-legend {
+  width: 18px;
+  height: 18px;
+  background-color: rgb(22, 0, 30);
+  outline: 1px solid rgb(175, 216, 248);
+  float: left;
+  margin-right: 5px;
+}
+
+#visited-legend {
+  width: 18px;
+  height: 18px;
+  background-color: rgb(26, 208, 157);
+  outline: 1px solid rgb(175, 216, 248);
+  float: left;
+  margin-right: 5px;
+}
+
+#final-legend {
+  width: 18px;
+  height: 18px;
+  background-color: rgb(247, 113, 125);
+  outline: 1px solid rgb(175, 216, 248);
+  float: left;
+  margin-right: 5px;
+}
+
+
+@media only screen and (max-width: 600px) {
+  .grid {
+    width: 33px;
+    height: 33px;
+    background-color: white;
+    outline: 1px solid rgb(175, 216, 248);
+    display: inline-block;
+  }
+  .grid-transition {
+    width: 33px;
+    height: 33px;
+    background-color: white;
+    outline: 1px solid rgb(175, 216, 248);
+    display: inline-block;
+    animation-name: gridAnimation;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-out;
+    animation-delay: 0;
+    animation-direction: alternate;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-play-state: running;
+  }
+
+  .wall {
+    width: 33px;
+    height: 33px;
+    background-color: rgb(22, 0, 30);
+    outline: 1px solid rgb(175, 216, 248);
+    display: inline-block;
+  }
+
+  .wall {
+    animation-name: visitedAnimation;
+    animation-duration: 0.2s;
+    animation-timing-function: ease-out;
+    animation-delay: 0;
+    animation-direction: alternate;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-play-state: running;
+  }
+
+  .start-node {
+    width: 33px;
+    height: 33px;
+    outline: 1px solid #a2d5f2;
+    display: inline-block;
+    position: relative;
+  }
+  .start-node:before {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    font-family: "Font Awesome 5 Free";
+    content: "\f0b2";
+    font-weight: 900;
+  }
+
+  .end-node {
+    width: 33px;
+    height: 33px;
+    outline: 1px solid #a2d5f2;
+    display: inline-block;
+    position: relative;
+  }
+  .end-node:before {
+    position: absolute;
+    top: 9px;
+    left: 10px;
+    font-family: "Font Awesome 5 Free";
+    content: "\f1cd";
+    font-weight: 900;
+  }
+  .navbar-header {
+    width: 95%;
+    height: 50%;
+    padding-top: 5px;
+    align-items: left;
+    display: flex;
+    justify-content: left;
+  }
+  .navbar-brand {
+    color: white;
+    font-size: 18;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    margin-left: 5%;
+    animation-name: transTitleBack;
+    animation-timing-function: ease-in;
+    animation-duration: 0.3s;
+  }
+  .toolbar-item {
+    color: white;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14;
+    width: 100px;
+    font-weight: bold;
+    margin-left: 8px;
+    width: 30%;
+    text-align: center;
+
+    animation-name: transTitleBack;
+    animation-timing-function: ease-in;
+    animation-duration: 0.3s;
+  }
+  .nav {
+    width: 100%;
+    height: 16%;
+    background-color: #ffa36c;
+    position: relative;
+  }
+
+  .legends {
+    padding-top: 15px;
+    height: 60px;
+    float: left;
+  }
+  .legends-item {
+    margin-left: 30px;
+    height: 40%;
+    float: left;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+  }
+  #wall-legend {
+    width: 18px;
+    height: 18px;
+    background-color: rgb(22, 0, 30);
+    outline: 1px solid rgb(175, 216, 248);
+    float: left;
+    margin-right: 5px;
+  }
+
+  #visited-legend {
+    width: 18px;
+    height: 18px;
+    background-color: rgb(26, 208, 157);
+    outline: 1px solid rgb(175, 216, 248);
+    float: left;
+    margin-right: 5px;
+  }
+
+  #final-legend {
+    width: 18px;
+    height: 18px;
+    background-color: rgb(247, 113, 125);
+    outline: 1px solid rgb(175, 216, 248);
+    float: left;
+    margin-right: 5px;
+  }
+  .visited-node {
+    width: 33px;
+    height: 33px;
+    background-color: rgb(26, 208, 157);
+    outline: 1px solid rgb(175, 216, 248);
+    display: inline-block;
+    animation-name: visitedAnimation1;
+    animation-duration: 0.4s;
+    animation-timing-function: ease-out;
+    animation-delay: 0;
+    animation-direction: alternate;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-play-state: running;
+  }
+  
+  .final-path {
+    width: 33px;
+    height: 33px;
+    background-color: rgb(247, 113, 125);
+    outline: 1px solid rgb(175, 216, 248);
+    display: inline-block;
+    animation-name: visitedAnimation3;
+    animation-duration: 0.4s;
+    animation-timing-function: ease-out;
+    animation-delay: 0;
+    animation-direction: alternate;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-play-state: running;
+  }
+  
+}
+
+@media only screen and (min-width: 600px) and (max-width: 768px) {
+  .grid {
+    width: 33px;
+    height: 33px;
+    background-color: white;
+    outline: 1px solid rgb(175, 216, 248);
+    display: inline-block;
+  }
+  .grid-transition {
+    width: 33px;
+    height: 33px;
+    background-color: white;
+    outline: 1px solid rgb(175, 216, 248);
+    display: inline-block;
+    animation-name: gridAnimation;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-out;
+    animation-delay: 0;
+    animation-direction: alternate;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-play-state: running;
+  }
+
+  .wall {
+    width: 33px;
+    height: 33px;
+    background-color: rgb(22, 0, 30);
+    outline: 1px solid rgb(175, 216, 248);
+    display: inline-block;
+  }
+
+  .wall {
+    animation-name: visitedAnimation;
+    animation-duration: 0.2s;
+    animation-timing-function: ease-out;
+    animation-delay: 0;
+    animation-direction: alternate;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-play-state: running;
+  }
+
+  .start-node {
+    width: 33px;
+    height: 33px;
+    outline: 1px solid #a2d5f2;
+    display: inline-block;
+    position: relative;
+  }
+  .start-node:before {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    font-family: "Font Awesome 5 Free";
+    content: "\f0b2";
+    font-weight: 900;
+  }
+
+  .end-node {
+    width: 33px;
+    height: 33px;
+    outline: 1px solid #a2d5f2;
+    display: inline-block;
+    position: relative;
+  }
+  .end-node:before {
+    position: absolute;
+    top: 9px;
+    left: 10px;
+    font-family: "Font Awesome 5 Free";
+    content: "\f1cd";
+    font-weight: 900;
+  }
+  .navbar-header {
+    width: 95%;
+    height: 50%;
+    padding-top: 5px;
+    align-items: left;
+    display: flex;
+    justify-content: left;
+  }
+  .navbar-brand {
+    color: white;
+    font-size: 22;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    margin-left: 4%;
+    animation-name: transTitleBack;
+    animation-timing-function: ease-in;
+    animation-duration: 0.3s;
+  }
+  .toolbar-container{
+  width: 93%;
+  height: 50%;
+  position: absolute;
+  bottom: 0;
+  padding-left:7%;
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+  
+  }
+  .toolbar-item {
+    color: white;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18;
+    font-weight: bold;
+    margin-left: 8px;
+    text-align: center;
+
+    animation-name: transTitleBack;
+    animation-timing-function: ease-in;
+    animation-duration: 0.3s;
+  }
+  .nav {
+    width: 100%;
+    height: 16%;
+    background-color: #ffa36c;
+    position: relative;
+  }
+
+  .legends {
+    padding-top: 25px;
+    height: 40px;
+    float: left;
+  }
+  .legends-item {
+    margin-left: 30px;
+    height: 40%;
+    float: left;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+  }
+  #wall-legend {
+    width: 18px;
+    height: 18px;
+    background-color: rgb(22, 0, 30);
+    outline: 1px solid rgb(175, 216, 248);
+    float: left;
+    margin-right: 5px;
+  }
+
+  #visited-legend {
+    width: 18px;
+    height: 18px;
+    background-color: rgb(26, 208, 157);
+    outline: 1px solid rgb(175, 216, 248);
+    float: left;
+    margin-right: 5px;
+  }
+
+  #final-legend {
+    width: 18px;
+    height: 18px;
+    background-color: rgb(247, 113, 125);
+    outline: 1px solid rgb(175, 216, 248);
+    float: left;
+    margin-right: 5px;
+  }
+  .visited-node {
+    width: 33px;
+    height: 33px;
+    background-color: rgb(26, 208, 157);
+    outline: 1px solid rgb(175, 216, 248);
+    display: inline-block;
+    animation-name: visitedAnimation1;
+    animation-duration: 0.4s;
+    animation-timing-function: ease-out;
+    animation-delay: 0;
+    animation-direction: alternate;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-play-state: running;
+  }
+  
+  .final-path {
+    width: 33px;
+    height: 33px;
+    background-color: rgb(247, 113, 125);
+    outline: 1px solid rgb(175, 216, 248);
+    display: inline-block;
+    animation-name: visitedAnimation3;
+    animation-duration: 0.4s;
+    animation-timing-function: ease-out;
+    animation-delay: 0;
+    animation-direction: alternate;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-play-state: running;
+  }
+  
+}

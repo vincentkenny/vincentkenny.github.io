@@ -1,0 +1,45 @@
+<html>
+
+<head>
+    <script src="func.js"></script>
+    <link rel="stylesheet" type="text/css" href="grid.css">
+    <link rel="stylesheet" type="text/css" href="css/all.min.css">
+    <title>K-Means Clutering | Kenny Vincent</title>
+    <link rel="shortcut icon" href="assets/icon_kmeans.png" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+</head>
+
+<body onresize="generate()">
+    <div class="nav noselect">
+        <div class="navbar-header">
+            <a href="#" class="navbar-brand">K-Means Clustering Visualizer</a>
+        </div>
+        <div class="toolbar-container">
+            <div class="toolbar-dropdown">
+                <a href="#" class="toolbar-item" id="group-selector" onclick="view_dropdown()">Number of Groups</a>
+                <span class="fas fa-xs fa-chevron-down sideIcon" id="arrow-icon">
+                </span>
+                <div class="dropdown-menu">
+                    <a href="#" id="group2" onclick="set_group(2)">2 Groups</a>
+                    <a href="#" id="group3" onclick="set_group(3)">3 Groups</a>
+                    <a href="#" id="group4" onclick="set_group(4)">4 Groups</a>
+                </div>
+            </div>
+            <a href="#" class="toolbar-item" onclick="scatter_data()">Scatter Data</a>
+            <button class="toolbar-item" id="btn-visualize" onclick="visualize_k_means()">Visualize Clustering</button>
+            <a href="#" class="toolbar-item" onclick="reset_grid()">Clear Board</a>
+            <a href="#" class="toolbar-item" id="cycle_view" ">Cycle</a>
+            
+        </div>
+    </div>
+    <div id="container">
+        <table id="board">
+        </table>
+    </div>
+</body>
+<script>
+    generate();
+
+</script>
+
+</html>
