@@ -21,6 +21,7 @@ function add(a, b) {
 }
 
 function set_group(val) {
+  reset_grid();
   stop_cycle();
   group_num = val;
   dropdown = document.getElementsByClassName("dropdown-menu")[0];
