@@ -44,7 +44,7 @@ function view_dropdown() {
 function generate() {
   //smartphone potrait
   if (window.screen.availWidth < 600) {
-    hor_length = 11;
+    hor_length = 10;
     ver_length = 15;
     initial_data_number = 25;
     document.getElementById("group-selector").innerHTML="Groups";
