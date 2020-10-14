@@ -14,7 +14,7 @@ var myvar;
 var ver_length = 20;
 var hor_length = 55;
 var initial_data_number = 50;
-var visual_started=false;
+var visual_started = false;
 
 function add(a, b) {
   return a + b;
@@ -47,23 +47,23 @@ function generate() {
     hor_length = 10;
     ver_length = 15;
     initial_data_number = 25;
-    document.getElementById("group-selector").innerHTML="Groups";
+    document.getElementById("group-selector").innerHTML = "Groups";
     document.getElementById("arrow-icon").style.display = "none";
   }
   //tablet potrait
-  else if (window.screen.availWidth >600 && window.screen.availWidth <770) {
+  else if (window.screen.availWidth > 600 && window.screen.availWidth < 770) {
     hor_length = 21;
     ver_length = 22;
     initial_data_number = 35;
-    document.getElementById("group-selector").innerHTML="Groups";
+    document.getElementById("group-selector").innerHTML = "Groups";
     document.getElementById("arrow-icon").style.display = "none";
   }
-  //desktop 
+  //desktop
   else {
     hor_length = 55;
     ver_length = 20;
     initial_data_number = 50;
-    document.getElementById("group-selector").innerHTML="Number of Groups";
+    document.getElementById("group-selector").innerHTML = "Number of Groups";
     document.getElementById("arrow-icon").style.display = "inline";
   }
   body = document.getElementById("board");
@@ -83,18 +83,26 @@ function generate() {
         coords = this.id.split("-");
         y = parseInt(coords[0]);
         x = parseInt(coords[1]);
-        if ((this.className == "grid" || this.className == "grid-transition") && !visual_started) {
-          this.className = "node";
-          arrNode.push(new node(x, y, 0));
-        } else if (this.className == "node" && !visual_started) {
-          this.className = "grid";
-          for (var k = 0; k < arrNode.length; k++) {
-            if (arrNode[k].x == x && arrNode[k].y == y) {
-              arrNode.splice(k, 1);
+        if (arrNode.length > 0) {
+          if (
+            (this.className == "grid" || this.className == "grid-transition") &&
+            !visual_started
+          ) {
+            this.className = "node";
+            arrNode.push(new node(x, y, 0));
+          } else if (this.className == "node" && !visual_started) {
+            this.className = "grid";
+            for (var k = 0; k < arrNode.length; k++) {
+              if (arrNode[k].x == x && arrNode[k].y == y) {
+                arrNode.splice(k, 1);
+              }
             }
           }
+        } else {
+          alert("Select number of groups and scatter data first!");
         }
       });
+
       tag.addEventListener("mousedown", function () {
         cur_stat = this.id;
       });
@@ -103,18 +111,21 @@ function generate() {
           coords = this.id.split("-");
           y = parseInt(coords[0]);
           x = parseInt(coords[1]);
-          if (this.id != cur_stat) {
-            if ((
-              this.className == "grid" ||
-              this.className == "grid-transition"
-            )  && !visual_started) {
-              this.className = "node";
-              arrNode.push(new node(x, y, 0));
-            } else if (this.className == "node"  && !visual_started) {
-              this.className = "grid";
-              for (var k = 0; k < arrNode.length; k++) {
-                if (arrNode[k].x == x && arrNode[k].y == y) {
-                  arrNode.splice(k, 1);
+          if (arrNode.length > 0) {
+            if (this.id != cur_stat) {
+              if (
+                (this.className == "grid" ||
+                  this.className == "grid-transition") &&
+                !visual_started
+              ) {
+                this.className = "node";
+                arrNode.push(new node(x, y, 0));
+              } else if (this.className == "node" && !visual_started) {
+                this.className = "grid";
+                for (var k = 0; k < arrNode.length; k++) {
+                  if (arrNode[k].x == x && arrNode[k].y == y) {
+                    arrNode.splice(k, 1);
+                  }
                 }
               }
             }
@@ -141,12 +152,13 @@ function generate() {
 
 function reset_grid() {
   stop_cycle();
-  visual_started=false;
+  visual_started = false;
   arrNode = new Array();
   grid = document.getElementById("board").getElementsByTagName("td");
   for (var i = 0; i < grid.length; i++) {
     grid[i].setAttribute("class", "grid");
   }
+  document.getElementById("btn-visualize").innerHTML = "Visualize Clustering";
 }
 
 function scatter_data() {
@@ -182,12 +194,10 @@ function scatter_data() {
   } else {
     btn.innerHTML = "Set Number of Group!";
   }
-  console.log("data "+arrNode.length);
-  console.log("centroid"+ centroid.length);
 }
 
 function toggle_cycle() {
-  if (window.availWidth >600) {
+  if (window.screen.availWidth > 600) {
     cycle_view = document.getElementById("cycle_view");
     if (cycle_view.style.display == "none") cycle_view.style.display = "block";
     else cycle_view.style.display = "none";
@@ -195,9 +205,7 @@ function toggle_cycle() {
 }
 function stop_cycle() {
   if (myvar) {
-    console.log(myvar);
     clearInterval(myvar);
-    console.log(myvar);
   }
   cycle_view = document.getElementById("cycle_view");
   cycle_view.style.display = "none";
@@ -243,7 +251,6 @@ function recalibrate_centroid(group_num, centroid) {
     cur_y = Math.round(cur_y);
     centroid[i] = [cur_x, cur_y];
     address = cur_y + "-" + cur_x;
-    console.log(i+" "+address);
     data = document.getElementById(address);
     data.setAttribute("class", "centroid" + cur_category);
   }
@@ -276,17 +283,34 @@ function reestimate_group(node, centroid, convergent) {
   return convergent;
 }
 
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  while (currentIndex != 0) {
+
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
+
+
 function visualize_k_means() {
   if (group_num > 0 && arrNode.length > 0) {
     visual_started = true;
     btn = document.getElementById("btn-visualize");
+    shuffle(arrNode);
     btn.disabled = true;
     toggle_cycle();
     var ctr = 0;
     var cycle = 1;
     var convergent = true;
     myvar = setInterval(function () {
-      console.log("data"+ arrNode.length);
       convergent = reestimate_group(arrNode[ctr], centroid, convergent);
       ctr += 1;
       if (ctr == arrNode.length) {
@@ -296,10 +320,10 @@ function visualize_k_means() {
 
         if (convergent) {
           clearInterval(myvar);
-          console.log("cycle completed");
           document.getElementById("cycle_view").innerHTML =
             "Cycle : " + cycle + " (Finished)";
-          document.getElementById("btn-visualize").innerHTML = "Clustering Finished";
+          document.getElementById("btn-visualize").innerHTML =
+            "Clustering Finished";
         } else {
           setTimeout(function () {
             recalibrate_centroid(group_num, centroid);
@@ -322,71 +346,3 @@ function visualize_k_means() {
     btn.innerHTML = "Scatter Data First!";
   }
 }
-
-// function reestablish_class(arrNode){
-//     arrNode.forEach(function(item){
-//         address = item.y + "-" + item.x;
-//         temp = document.getElementById(address);
-//         temp.setAttribute("class","group"+item.group);
-//     });
-// }
-// function check_missing(arrNode) {
-//   num1 = 0;
-//   num2 = 0;
-//   num3 = 0;
-//   num4 = 0;
-
-//   arrNode.forEach(function(item) {
-//     address = item.y + "-" + item.x;
-//     temp = document.getElementById(address);
-//     // if (temp. className == "group1") num1 += 1;
-//     // if (temp.className == "group2") num2 += 1;
-//     // if (temp.className == "group3") num3 += 1;
-//     // if (temp.className == "group4") num4 += 1;
-//     if (temp.classList.contains("group1")) {
-//         temp.setAttribute("class","group1");
-//       num1 += 1;
-//     }
-//     if (temp.classList.contains("group2")) {
-//         temp.setAttribute("class","group2");
-//       num2 += 1;
-//     }
-//     if (temp.classList.contains("group3")){
-//         temp.setAttribute("class","group3");
-//       num3 += 1;
-//     }
-//     if (temp.classList.contains("group4")){
-//         temp.setAttribute("class","group4");
-//       num4 += 1;
-//     }
-//   });
-//   console.log("manual");
-//   console.log(num1);
-//   console.log(num2);
-//   console.log(num3);
-//   console.log(num4);
-//   console.log("getelementsbyclassname");
-//   data1 = document.getElementsByClassName("group1");
-//   data2 = document.getElementsByClassName("group2");
-//   data3 = document.getElementsByClassName("group3");
-//   data4 = document.getElementsByClassName("group4");
-//   console.log(data1.length);
-//   console.log(data2.length);
-//   console.log(data3.length);
-//   console.log(data4.length);
-//   total =
-//     parseInt(data1.length) +
-//     parseInt(data2.length) +
-//     parseInt(data3.length) +
-//     parseInt(data4.length);
-//   console.log("total items " + total);
-//   console.log("queryselectorall");
-//   all1 = document.querySelectorAll(".group1");
-//   all2 = document.querySelectorAll(".group2");
-//   all3 = document.querySelectorAll(".group3");
-//   all4 = document.querySelectorAll(".group4");
-//   console.log(all1.length);
-//   console.log(all2.length);
-//   console.log(all3.length);
-//   console.log(all4.length);
-// }
