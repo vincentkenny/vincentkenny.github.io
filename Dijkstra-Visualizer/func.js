@@ -121,7 +121,6 @@ function generate() {
           move_comp = "end-node";
           this.className="grid";
         }
-        console.log(move_comp); 
       });
       tag.addEventListener("mousedown", function () {
         cur_stat = this.id;
@@ -183,7 +182,6 @@ function generate() {
   end.setAttribute("class", "end-node");
 
   initiate_matrix();
-  // console.log(cost);
 
   var mouseDown = false;
   body = document.getElementById("board");
@@ -220,7 +218,6 @@ function initiate_matrix() {
       else cost[from][to] = 999;
     }
   }
-  console.log(cost);
 }
 
 //reset function
@@ -279,7 +276,6 @@ function scatter_wall() {
     for (var i = 0; i < amount; i++) {
       cand_x = Math.floor(Math.random() * (hor_length-buffer*2)) + buffer;
       cand_y = Math.floor(Math.random() * (ver_length-buffer*2)) + buffer;
-      console.log(cand_y + "-" + cand_x);
       cand = document.getElementById(cand_y + "-" + cand_x);
       if (cand.className != "start-node" && cand.className != "end-node") {
         cand.setAttribute("class", "wall");
@@ -383,7 +379,6 @@ function visualize_path(final_path) {
 }
 
 function dijkstra() {
-  console.log(window.screen.availHeight + "x" + window.screen.availWidth);
   if (!visual_started) {
     //defining walls
     establish_walls(arrWall, cost);
