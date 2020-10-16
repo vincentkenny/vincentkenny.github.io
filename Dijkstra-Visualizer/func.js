@@ -29,7 +29,7 @@ var final_path = [];
 var visual_started = false;
 var hor_length = 55;
 var ver_length = 20;
-var move_comp="";
+var move_comp = "";
 
 function view_dropdown() {
   dropdown = document.getElementsByClassName("dropdown-menu")[0];
@@ -44,7 +44,7 @@ function view_dropdown() {
 function generate() {
   renew_arrays();
   stop_cycle();
-  visual_started=false;
+  visual_started = false;
   document.getElementById("board").innerHTML = "";
   if (window.screen.availWidth < 600) {
     hor_length = 10;
@@ -53,7 +53,7 @@ function generate() {
     y_start = 2;
     x_end = 8;
     y_end = 12;
-    document.getElementById("scatter-btn").innerHTML="Scatter Obstacles";
+    document.getElementById("scatter-btn").innerHTML = "Scatter Obstacles";
   }
   //tablet potrait
   else if (window.screen.availWidth > 600 && window.screen.availWidth < 770) {
@@ -72,7 +72,8 @@ function generate() {
     y_start = 9;
     x_end = 42;
     y_end = 9;
-    document.getElementById("scatter-btn").innerHTML="Scatter Random Obstacles";
+    document.getElementById("scatter-btn").innerHTML =
+      "Scatter Random Obstacles";
   }
   for (i = 0; i < ver_length; i++) {
     var tag = document.createElement("tr");
@@ -87,39 +88,48 @@ function generate() {
         coords = this.id.split("-");
         y = parseInt(coords[0]);
         x = parseInt(coords[1]);
-        
+
         if (
           (this.className == "grid" || this.className == "grid-transition") &&
-          !visual_started && !move_comp
+          !visual_started &&
+          !move_comp
         ) {
           this.className = "wall";
           arrWall.push(new Wall(x, y));
-        } else if((this.className == "grid" || this.className == "grid-transition") &&
-        !visual_started && move_comp!=null){
+        } else if (
+          (this.className == "grid" || this.className == "grid-transition") &&
+          !visual_started &&
+          move_comp != null
+        ) {
           this.className = move_comp;
-          if(move_comp == "start-node"){
+          if (move_comp == "start-node") {
             x_start = x;
             y_start = y;
-          }
-          else if(move_comp == "end-node"){
+          } else if (move_comp == "end-node") {
             x_end = x;
             y_end = y;
           }
           move_comp = "";
-        }else if (this.className == "wall" && !visual_started) {
+        } else if (this.className == "wall" && !visual_started) {
           this.className = "grid";
           for (var k = 0; k < arrWall.length; k++) {
             if (arrWall[k].x == x && arrWall[k].y == y) {
               arrWall.splice(k, 1);
             }
           }
-        }else if(this.className == "start-node" && !visual_started){
-          move_comp = "start-node";
-          this.className="grid";
-        }
-        else if(this.className == "end-node" && !visual_started){
-          move_comp = "end-node";
-          this.className="grid";
+        } else if (this.className == "start-node" && !visual_started) {
+          if (move_comp == "end-node") alert("Place the target first!");
+          else {
+            move_comp = "start-node";
+            this.className = "grid";
+          }
+        } else if (this.className == "end-node" && !visual_started) {
+          if (move_comp == "start-node")
+            alert("Place the starting point first!");
+          else {
+            move_comp = "end-node";
+            this.className = "grid";
+          }
         }
       });
       tag.addEventListener("mousedown", function () {
@@ -199,9 +209,9 @@ function generate() {
 
 //matrix initiation
 function initiate_matrix() {
-  for (var from = 0; from < (hor_length*ver_length); from++) {
+  for (var from = 0; from < hor_length * ver_length; from++) {
     cost.push([0]);
-    for (var to = 0; to < (hor_length*ver_length); to++) {
+    for (var to = 0; to < hor_length * ver_length; to++) {
       //constituting the coordinates from index and the adjacent squares
       coor_x = from % hor_length;
       coor_y = Math.floor(from / hor_length);
@@ -260,7 +270,7 @@ function stop_cycle() {
 function scatter_wall() {
   if (!visual_started) {
     if (window.screen.availWidth < 600) {
-      amount = 30
+      amount = 30;
       buffer = 0;
     }
     //tablet potrait
@@ -274,8 +284,8 @@ function scatter_wall() {
       buffer = 3;
     }
     for (var i = 0; i < amount; i++) {
-      cand_x = Math.floor(Math.random() * (hor_length-buffer*2)) + buffer;
-      cand_y = Math.floor(Math.random() * (ver_length-buffer*2)) + buffer;
+      cand_x = Math.floor(Math.random() * (hor_length - buffer * 2)) + buffer;
+      cand_y = Math.floor(Math.random() * (ver_length - buffer * 2)) + buffer;
       cand = document.getElementById(cand_y + "-" + cand_x);
       if (cand.className != "start-node" && cand.className != "end-node") {
         cand.setAttribute("class", "wall");
@@ -307,12 +317,12 @@ function establish_walls(arrWall, cost) {
     }
 
     //handles right side
-    if (item.x < hor_length-1) {
+    if (item.x < hor_length - 1) {
       cost[point][index_right] = 999;
       cost[index_right][point] = 999;
     }
     //handles bottom row
-    if (item.y < ver_length-1) {
+    if (item.y < ver_length - 1) {
       cost[point][index_bottom] = 999;
       cost[index_bottom][point] = 999;
     }
@@ -341,10 +351,8 @@ function trace_back(end_node, final_path) {
 function visualize_visited(visited, final_path) {
   count = 0;
   timer = 1;
-  if(window.screen.availWidth<600)
-    timer = 15;
-  else
-    timer = 1;
+  if (window.screen.availWidth < 600) timer = 15;
+  else timer = 1;
   intervalVisited = setInterval(function () {
     y_temp = Math.floor(visited[count].destination / hor_length);
     x_temp = visited[count].destination % hor_length;
