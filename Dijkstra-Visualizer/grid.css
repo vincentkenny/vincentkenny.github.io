@@ -518,6 +518,11 @@ button {
     margin-bottom: 20px;
     font-size:15px;
   }
+  #board {
+    width: 100%;
+    padding-left: 15px;
+    margin-bottom:15px;
+  }
   .grid {
     width: 33px;
     height: 33px;
