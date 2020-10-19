@@ -40,6 +40,10 @@ function view_dropdown() {
   }
 }
 
+function close_tutorial(){
+  document.getElementById("tutorial-container").style.display = "none";
+}
+
 //estrablishing functions and generating grid
 function generate() {
   renew_arrays();
@@ -203,8 +207,6 @@ function generate() {
   body.addEventListener("mousedown", function () {
     mouseDown = true;
   });
-  cycle_view = document.getElementById("cycle_view");
-  cycle_view.style.display = "none";
 }
 
 //matrix initiation
@@ -223,8 +225,8 @@ function initiate_matrix() {
       if (from == to) cost[from][to] = 0;
       else if (to == index_top && coor_y > 0) cost[from][to] = 1;
       else if (to == index_left && coor_x > 0) cost[from][to] = 1;
-      else if (to == index_right && coor_x < 54) cost[from][to] = 1;
-      else if (to == index_bottom && coor_y < 19) cost[from][to] = 1;
+      else if (to == index_right && coor_x < (hor_length-1)) cost[from][to] = 1;
+      else if (to == index_bottom && coor_y < (ver_length-1)) cost[from][to] = 1;
       else cost[from][to] = 999;
     }
   }

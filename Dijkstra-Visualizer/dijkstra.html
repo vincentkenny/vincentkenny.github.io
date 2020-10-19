@@ -10,6 +10,17 @@
 </head>
 
 <body onresize="generate()">
+    <div id="tutorial-container">
+        <div id="tutorial-content">
+            <h1 id=tutorial-header>What to do?</h1>
+            <div id="tutorial-text">The goal of the program is to search for the <b>shortest path possible</b> from the start position to the end goal.</div>
+            <div id="tutorial-text">You can move both the <b>start position</b> and the <b>end goal</b> by <b>dragging or clicking and moving</b> them.</div>
+            <div id="tutorial-text">You can add obstacle by clicking or dragging on the grid, or you can scatter random obstacles by clicking on the option before the <b>Visualize Pathfinding</b> button.</div>
+            <div id="tutorial-text">If you want to <b>reset the board</b>, there's also an option for that.</div>
+            <div id="tutorial-text">Whenever you're ready, start the algorithm by pressing the <b>most obvious button</b>. <i>Have fun!</i></div>
+            <button id="okButton" onclick="close_tutorial()">Sir, Yes Sir!</button>
+        </div>
+    </div>
     <div class="nav noselect">
         <div class="navbar-header">
             <a href="#" class="navbar-brand">Dijkstra Pathfinding Visualizer</a>

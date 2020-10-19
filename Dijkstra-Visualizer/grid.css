@@ -14,6 +14,49 @@ button {
   user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
 }
+#tutorial-container{
+  width:100%;
+  height:100%;
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  background-color: rgba(0,0,0,0.5);
+  z-index:2;
+}
+#tutorial-content{
+  width:40%;
+  height:70%;
+  background-color:white;
+  
+  margin:auto;
+  margin-top:50px;
+}
+#okButton {
+  width: 200px;
+  background-color: rgb(12, 190, 116);
+  border: none;
+  text-decoration: none;
+  height: 40px;
+  border-radius: 10px;
+  color:white;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16;
+  margin-left:31%;
+  margin-top:30px;
+  font-weight: bold;
+}
+#tutorial-header{
+  padding-top:10px;
+  text-align: center;
+}
+#tutorial-text{
+  font-family: Arial, Helvetica, sans-serif;
+  margin-left:7%;
+  margin-right:7%;
+  margin-bottom: 30px;
+}
 .grid {
   width: 22px;
   height: 22px;
@@ -431,6 +474,50 @@ button {
 
 
 @media only screen and (max-width: 600px) {
+  #tutorial-container{
+    width:100%;
+    height:100%;
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background-color: rgba(0,0,0,0.5);
+    z-index:2;
+  }
+  #tutorial-content{
+    width:80%;
+    height:80%;
+    background-color:white;
+    
+    margin:auto;
+    margin-top:60px;
+  }
+  #okButton {
+    width: 200px;
+    background-color: rgb(12, 190, 116);
+    border: none;
+    text-decoration: none;
+    height: 40px;
+    border-radius: 10px;
+    color:white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16;
+    margin-left:18%;
+    margin-top:30px;
+    font-weight: bold;
+  }
+  #tutorial-header{
+    padding-top:10px;
+    text-align: center;
+  }
+  #tutorial-text{
+    font-family: Arial, Helvetica, sans-serif;
+    margin-left:7%;
+    margin-right:7%;
+    margin-bottom: 20px;
+    font-size:15px;
+  }
   .grid {
     width: 33px;
     height: 33px;
@@ -618,6 +705,50 @@ button {
 }
 
 @media only screen and (min-width: 600px) and (max-width: 768px) {
+  #tutorial-container{
+    width:100%;
+    height:100%;
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background-color: rgba(0,0,0,0.5);
+    z-index:2;
+  }
+  #tutorial-content{
+    width:80%;
+    height:55%;
+    background-color:white;
+    
+    margin:auto;
+    margin-top:60px;
+  }
+  #okButton {
+    width: 200px;
+    background-color: rgb(12, 190, 116);
+    border: none;
+    text-decoration: none;
+    height: 40px;
+    border-radius: 10px;
+    color:white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20;
+    margin-left:35%;
+    margin-top:30px;
+    font-weight: bold;
+  }
+  #tutorial-header{
+    padding-top:10px;
+    text-align: center;
+  }
+  #tutorial-text{
+    font-family: Arial, Helvetica, sans-serif;
+    margin-left:7%;
+    margin-right:7%;
+    margin-bottom: 20px;
+    font-size:20px;
+  }
   .grid {
     width: 33px;
     height: 33px;
