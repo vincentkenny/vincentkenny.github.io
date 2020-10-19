@@ -16,8 +16,8 @@ var hor_length = 55;
 var initial_data_number = 50;
 var visual_started = false;
 
-function add(a, b) {
-  return a + b;
+function close_tutorial(){
+  document.getElementById("tutorial-container").style.display = "none";
 }
 
 function set_group(val) {

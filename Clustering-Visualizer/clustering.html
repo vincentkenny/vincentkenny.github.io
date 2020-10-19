@@ -10,6 +10,18 @@
 </head>
 
 <body onresize="generate()">
+    <div id="tutorial-container">
+        <div id="tutorial-content">
+            <h1 id=tutorial-header>What to do?</h1>
+            <div id="tutorial-text">This is a visualizer of a <b>K-Means clustering algorithm</b>. The scattered data will be clustered based on the centroids.</div>
+            <div id="tutorial-text">Start by determining the number of available groups, and then scattering the data. <b>The options are beside each other</b>.</div>
+            <div id="tutorial-text">The scattered data will also consist of the centroids representing the <b>first seeds of the groups</b>. The centroid will move each cycle of the visualization <b>relative to the positions of the group member</b>. Nodes takes a color as identity according to the <b>closest centroid to its position</b>.</div>
+            <div id="tutorial-text">If you want to <b>add more data</b>, you can drag over or click at the grid. <b>The initial centroids cannot be replaced</b>.</div>
+            <div id="tutorial-text">You can stop the visualization process with <b>clearing the board</b>.</div>
+            <div id="tutorial-text">Whenever you're ready, start the algorithm by pressing the <b>most obvious button</b>. <i>Have fun!</i></div>
+            <button id="okButton" onclick="close_tutorial()">Sir, Yes Sir!</button>
+        </div>
+    </div>
     <div class="nav noselect">
         <div class="navbar-header">
             <a href="#" class="navbar-brand">K-Means Clustering Visualizer</a>
