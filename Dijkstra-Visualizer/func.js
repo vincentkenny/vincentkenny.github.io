@@ -71,7 +71,7 @@ function generate() {
   //desktop
   else {
     hor_length = 55;
-    ver_length = 20;
+    ver_length = 19;
     x_start = 12;
     y_start = 9;
     x_end = 42;
